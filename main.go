@@ -42,7 +42,6 @@ func displayKubernetesStatus() {
 		return
 	}
 
-	// Create a new table
 	table := tablewriter.NewWriter(os.Stdout)
 	table.SetHeader([]string{"ID", "NAME", "STATUS"})
 
@@ -50,12 +49,9 @@ func displayKubernetesStatus() {
 		id := string(pod.ObjectMeta.UID)
 		name := pod.ObjectMeta.Name
 		status := strings.ToLower(string(pod.Status.Phase))
-
-		// Add a row to the table
 		table.Append([]string{id, name, status})
 	}
 
-	// Render the table
 	table.Render()
 }
 
