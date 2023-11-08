@@ -12,9 +12,11 @@ Run locally within the package scope
 
 or
 
+Clone this repository and run:
+
 ```bash
-go build
 cd kubestat
+go build
 sudo cp kubestat /usr/local/bin
 ```
 
