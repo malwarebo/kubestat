@@ -13,6 +13,7 @@ Run locally within the package scope
 or
 
 ```bash
+go build
 cd kubestat
 sudo cp kubestat /usr/local/bin
 ```
