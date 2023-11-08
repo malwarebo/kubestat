@@ -55,9 +55,28 @@ func displayKubernetesStatus() {
 	table.Render()
 }
 
+func getCurrentContext() (string, error) {
+	kubeconfigPath := filepath.Join(os.Getenv("HOME"), ".kube", "config")
+	config, err := clientcmd.LoadFromFile(kubeconfigPath)
+	if err != nil {
+		return "", err
+	}
+	return config.CurrentContext, nil
+}
+
 func main() {
 	flag.Parse()
 
-	fmt.Println("Checking Kubernetes Status:")
+	fmt.Println("Checking Kubernetes Status...")
+
+	currentContext, err := getCurrentContext()
+	if err != nil {
+		fmt.Printf("Error reading current context: %v\n", err)
+		return
+	}
+
+	fmt.Printf("Current context: %s\n", currentContext)
+
+	fmt.Println("Running pods:")
 	displayKubernetesStatus()
 }
