@@ -49,7 +49,15 @@ func displayKubernetesStatus() {
 		id := string(pod.ObjectMeta.UID)
 		name := pod.ObjectMeta.Name
 		status := strings.ToLower(string(pod.Status.Phase))
-		table.Append([]string{id, name, status})
+
+		color := tablewriter.FgCyanColor
+		if status == "running" {
+			color = tablewriter.FgHiGreenColor
+		} else if status == "terminated" || status == "failed" {
+			color = tablewriter.FgHiRedColor
+		}
+
+		table.Rich([]string{id, name, status}, []tablewriter.Colors{{color}})
 	}
 
 	table.Render()
