@@ -20,4 +20,14 @@ go build
 sudo cp kubestat /usr/local/bin
 ```
 
-Run the command  `kubestat` from anywhere in the CLI.
+Run the command `kubestat` from anywhere in the CLI.
+
+# namespace filter
+
+Need to filter by namespace `toto` like you do with `kubectl get pods -n toto` ?
+
+- install go
+- modify `main.go`
+  - replace `.Pods("")`
+  - with `.Pods("toto")`
+- run `go build`
