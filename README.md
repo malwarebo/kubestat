@@ -13,7 +13,7 @@ sudo make install
 
 Run the command `kubestat` from anywhere in the terminal.
 
-### run with namespace filter
+### Run with namespace filter
 
 ```bash
 kubestat --namepsace <namespace>
