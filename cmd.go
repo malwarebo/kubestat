@@ -2,19 +2,20 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/spf13/cobra"
 )
 
-func runKubestat(cmd *cobra.Command, args []string, namespace string) {
-	fmt.Println("Checking Kubernetes Status...")
+func runKubestat(namespace string, restartThreshold int32) {
 	currentContext, err := getCurrentContext()
 	if err != nil {
 		fmt.Printf("Error reading current context: %v\n", err)
 		return
 	}
-	fmt.Printf("Current context: %s\n", currentContext)
-	fmt.Printf("Namespace: %s\n", namespace)
-	fmt.Println("Running pods:")
-	displayKubernetesStatus(namespace)
+
+	scope := "all namespaces"
+	if namespace != "" {
+		scope = fmt.Sprintf("namespace %q", namespace)
+	}
+	fmt.Printf("Context: %s  |  Scanning %s for unhealthy pods...\n\n", currentContext, scope)
+
+	displayUnhealthyPods(namespace, restartThreshold)
 }
